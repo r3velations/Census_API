@@ -68,6 +68,15 @@ def get_population_city(city_code, state_code):
     }
 
 
+# Working
+@app.get("/states/population/{state_code}")
+def get_population_state(state_code):
+    response = requests.get(
+        f"https://api.census.gov/data/2021/pep/population?get=NAME,POP_2021&for=state:{state_code}&key={api_key}"
+    ).json()
+    return {"state: ": response[1][0], "population: ": response[1][1]}
+
+
 # Broken unable to get county level data with this api
 # @app.get("/counties/population/{county_code}/{state_code}")
 # def get_population_county(county_code, state_code):
@@ -79,15 +88,6 @@ def get_population_city(city_code, state_code):
 #         "county name and state: ": response[1][1],
 #         "population: ": response[1][0],
 #     }
-
-
-# Working
-@app.get("/states/population/{state_code}")
-def get_population_state(state_code):
-    response = requests.get(
-        f"https://api.census.gov/data/2021/pep/population?get=NAME,POP_2021&for=state:{state_code}&key={api_key}"
-    ).json()
-    return {"state: ": response[1][0], "population: ": response[1][1]}
 
 
 # Asynchronous Example == not working --> use httpx
