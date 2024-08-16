@@ -26,13 +26,9 @@ def provide_help_response():
 # Working
 @app.get("/states/statecodes")
 def list_state_codes():
-    try:
         base_url = "https://api.census.gov/data/2020/dec/ddhca"
         response = requests.get(f"{base_url}?get=NAME&for=state:*&key={api_key}").json()
         return response
-    except Exception as e:
-        print(e.__notes__)
-
 
 # Working
 @app.get("/counties/countycodes/{state_code}")
